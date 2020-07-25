@@ -2,6 +2,7 @@
 """Start Kytos SDN Platform core."""
 import asyncio
 import functools
+import logging
 import os
 import signal
 import sys
@@ -112,6 +113,7 @@ def main():
     else:
         with daemon.DaemonContext():
             async_main(config)
+
 
 # pylint: disable=invalid-name
 def exhandler(exctype, value, tb):
