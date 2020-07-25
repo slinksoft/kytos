@@ -21,6 +21,7 @@ import os
 import re
 import sys
 import threading
+import traceback
 from concurrent.futures import ThreadPoolExecutor
 from importlib import import_module
 from importlib import reload as reload_module
@@ -128,6 +129,27 @@ class Controller:
         #: Now you can access the enabled napps with:
         #: from napps.<username>.<napp_name> import ?....
         sys.path.append(os.path.join(self.options.napps, os.pardir))
+        sys.excepthook = self.exhandler
+
+    # pylint: disable=invalid-name,no-self-use
+    def exhandler(self, exctype, value, tb):
+        """Define exception hook hanndler
+        Args:
+            exctype: exception type
+            value: value of exception
+            tb: traceback
+        """
+        # logs uncaught exceptions into the console and errlog.log
+        traceback.print_exception(exctype, value, tb)
+        print(tb)
+        # Configure to log uncaught exceptions to errlog file
+        # pylint: disable=logging-format-interpolation
+        logging.basicConfig(filename='kytos/kytos/core/errlog.log',
+                            format='%(asctime)s:%(pathname)'
+                            's:%(levelname)s:%(message)s')
+        print('Uncaught Exception: {0}'.format(str(value)))
+        # pylint: disable=logging-format-interpolation
+        logging.exception('Uncaught Exception: {0}'.format(str(value)))
 
     def enable_logs(self):
         """Register kytos log and enable the logs."""
