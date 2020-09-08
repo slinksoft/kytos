@@ -141,10 +141,9 @@ class Controller:
         """
         # logs uncaught exceptions into the console and errlog.log
         traceback.print_exception(exctype, value, tb)
-        log.debug
         # Configure to log uncaught exceptions to errlog file
         # pylint: disable=logging-format-interpolation
-        logging.basicConfig(filename='kytos/kytos/core/errlog.log',
+        logging.basicConfig(filename='errlog.log',
                             format='%(asctime)s:%(pathname)'
                             's:%(levelname)s:%(message)s')
         print(f'Uncaught Exception: {str(value)}')
