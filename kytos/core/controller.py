@@ -133,7 +133,7 @@ class Controller:
 
     # pylint: disable=invalid-name,no-self-use
     def exhandler(self, exctype, value, tb):
-        """Define exception hook hanndler
+        """Define exception hook handler
         Args:
             exctype: exception type
             value: value of exception
@@ -141,13 +141,13 @@ class Controller:
         """
         # logs uncaught exceptions into the console and errlog.log
         traceback.print_exception(exctype, value, tb)
-        print(tb)
+        log.debug
         # Configure to log uncaught exceptions to errlog file
         # pylint: disable=logging-format-interpolation
         logging.basicConfig(filename='kytos/kytos/core/errlog.log',
                             format='%(asctime)s:%(pathname)'
                             's:%(levelname)s:%(message)s')
-        print('Uncaught Exception: {0}'.format(str(value)))
+        print(f'Uncaught Exception: {str(value)}')
         # pylint: disable=logging-format-interpolation
         logging.exception('Uncaught Exception: {0}'.format(str(value)))
 
