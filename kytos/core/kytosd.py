@@ -123,7 +123,7 @@ def exc_handler(exc_type, value, tb):
             value: value of exception
             tb: traceback
     """
-    # logs uncaught exceptions into the console and errlog.log
+    # logs uncaught exceptions into errlog.log
     traceback.print_exception(exc_type, value, tb)
     # pylint: disable=logging-format-interpolation
     logging.basicConfig(filename='errlog.log',

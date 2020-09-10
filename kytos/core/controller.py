@@ -139,7 +139,7 @@ class Controller:
             value: value of exception
             tb: traceback
         """
-        # logs uncaught exceptions into the console and errlog.log
+        # logs uncaught exceptions into errlog.log
         traceback.print_exception(exc_type, value, tb)
         # Configure to log uncaught exceptions to errlog file
         # pylint: disable=logging-format-interpolation
