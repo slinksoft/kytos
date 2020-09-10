@@ -106,7 +106,7 @@ def main():
     config = KytosConfig().options['daemon']
 
     # Configure to log uncaught exceptions to errlog file
-    sys.excepthook = exhandler
+    sys.excepthook = exc_handler
 
     if config.foreground:
         async_main(config)
@@ -116,21 +116,19 @@ def main():
 
 
 # pylint: disable=invalid-name
-def exhandler(exctype, value, tb):
-    """Define exception hook hanndler
+def exc_handler(exc_type, value, tb):
+    """Print uncaught exceptions and/or save them to a log file.
         Args:
-            exctype: exception type
+            exc_type: exception type
             value: value of exception
             tb: traceback
     """
-    #
     # logs uncaught exceptions into the console and errlog.log
-    traceback.print_exception(exctype, value, tb)
+    traceback.print_exception(exc_type, value, tb)
     # pylint: disable=logging-format-interpolation
     logging.basicConfig(filename='errlog.log',
                         format='%(asctime)s:%(pathname)s:'
                         '%(levelname)s:%(message)s')
-    print(f'Uncaught Exception: {str(value)}')
     logging.exception('Uncaught Exception: {0}'.format(str(value)))
 
 
